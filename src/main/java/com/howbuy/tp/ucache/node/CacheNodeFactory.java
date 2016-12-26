@@ -1,4 +1,4 @@
-package com.howbuy.tp.ucache.config;
+package com.howbuy.tp.ucache.node;
 
 import org.apache.commons.digester.AbstractObjectCreationFactory;
 import org.apache.commons.lang.StringUtils;

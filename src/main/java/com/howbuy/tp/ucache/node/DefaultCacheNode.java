@@ -11,7 +11,7 @@
  * Copyright (c) 2016, Howbuy Rights Reserved.
 */
 
-package com.howbuy.tp.ucache.config;
+package com.howbuy.tp.ucache.node;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ import lombok.Setter;
  *
  * @see 	 
  */
-public abstract class DefaultCacheNode {
+public abstract class DefaultCacheNode implements CacheNode {
     
     @Setter @Getter
     private String name;

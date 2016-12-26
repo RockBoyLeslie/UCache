@@ -1,4 +1,4 @@
-package com.howbuy.tp.ucache.config;
+package com.howbuy.tp.ucache.node;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,13 +17,13 @@ public class CacheContextNode {
 
     private static final Logger LOG = LoggerFactory.getLogger(CacheContextNode.class);
 
-    private Map<String, LocalCacheNode> cacheNodes;
+    private Map<String, CacheNode> cacheNodes;
 
     public CacheContextNode() {
-        this.cacheNodes = new HashMap<String, LocalCacheNode>();
+        this.cacheNodes = new HashMap<String, CacheNode>();
     }
 
-    public void addCacheNode(LocalCacheNode node) {
+    public void addCacheNode(CacheNode node) {
         if (cacheNodes.containsKey(node.getName())) {
             LOG.warn("Cache name [{}] already exists, addCacheNode failed", node.getName());
             return;
@@ -31,7 +31,7 @@ public class CacheContextNode {
         cacheNodes.putIfAbsent(node.getName(), node);
     }
 
-    public LocalCacheNode getCacheNode(String cacheName) {
+    public CacheNode getCacheNode(String cacheName) {
         return cacheNodes.get(cacheName);
     }
 

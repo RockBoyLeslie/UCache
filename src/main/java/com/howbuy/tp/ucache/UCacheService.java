@@ -13,17 +13,13 @@
 
 package com.howbuy.tp.ucache;
 
+import com.howbuy.tp.ucache.config.CacheConfigParser;
+import com.howbuy.tp.ucache.node.CacheContextNode;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
 import lombok.Setter;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-
-import com.howbuy.tp.ucache.config.CacheConfigParser;
-import com.howbuy.tp.ucache.config.CacheContextNode;
 
 /**
  * ClassName:UCacheService Function: TODO ADD FUNCTION Reason: TODO ADD REASON
@@ -47,11 +43,11 @@ public class UCacheService implements InitializingBean {
     public Map<String, Object> get(String cacheName) {
         return cacheContext.getCacheNode(cacheName).getCache();
     }
-    
-    public Object get(String cacheName, String keyValue) throws ExecutionException {
+
+    public Object get(String cacheName, String keyValue) throws CacheContextException {
         return cacheContext.getCacheNode(cacheName).getCache(keyValue);
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         try {

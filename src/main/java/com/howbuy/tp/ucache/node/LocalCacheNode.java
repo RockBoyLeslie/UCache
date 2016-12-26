@@ -11,7 +11,7 @@
  * Copyright (c) 2016, Howbuy Rights Reserved.
  */
 
-package com.howbuy.tp.ucache.config;
+package com.howbuy.tp.ucache.node;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit;
 import lombok.Setter;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
@@ -40,6 +42,8 @@ import com.howbuy.tp.ucache.utils.SessionTemplateUtils;
  */
 public class LocalCacheNode extends DefaultCacheNode {
 
+    private static final Logger LOG = LoggerFactory.getLogger(LocalCacheNode.class);
+    
     private static final char SEPARATOR = ':';
 
     @Setter
@@ -47,8 +51,6 @@ public class LocalCacheNode extends DefaultCacheNode {
 
     @Setter
     private String sqlName;
-
-    //private String keyName;
 
     private String[] keys;
 
@@ -65,8 +67,13 @@ public class LocalCacheNode extends DefaultCacheNode {
         });
     }
     
-    public Object getCache(String keyValue) throws ExecutionException {
-        return infos.get(keyValue);
+    public Object getCache(String keyValue) throws CacheContextException {
+        try {
+            return infos.get(keyValue);
+        } catch (ExecutionException e) {
+            LOG.error(String.format("failed to get cache, cacheName[{}], keyValue[{}]", getName(), keyValue),  e);
+            throw new CacheContextException(e);
+        }
     }
     
     public Map<String, Object> getCache() {
